@@ -14,7 +14,13 @@ class CreateTermDefinitionsTable extends Migration
     public function up()
     {
         Schema::create('term_definitions', function (Blueprint $table) {
-            $table->increments('id');
+            $table->engine = 'InnoDB';
+            $table->charset = 'utf8';
+            $table->collation = 'utf8_unicode_ci';
+            $table->increments('id')->unsigned();
+            $table->integer('term_id')->nullable(false)->unsigned();
+            $table->string('definition', 255)->nullable(false);
+//            $table->foreign('term_id')->references('id')->on('terms');
             $table->timestamps();
         });
     }
