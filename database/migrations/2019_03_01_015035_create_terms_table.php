@@ -19,10 +19,10 @@ class CreateTermsTable extends Migration
             $table->collation = 'utf8_unicode_ci';
             $table->increments('id')->unsigned();
             $table->char('term', 255)->nullable(false);
-            $table->integer('lang_id')->nullable(true);
-            $table->integer('user_id')->nullable(false);
-            $table->integer('nativity_scale')->nullable(true);
-            $table->integer('lang_part_id')->nullable(true);
+            $table->integer('lang_id')->nullable(true)->unsigned();;
+            $table->integer('user_id')->nullable(false)->unsigned();;
+            $table->integer('nativity_scale')->nullable(true)->unsigned();;
+            $table->integer('lang_part_id')->nullable(true)->unsigned();;
 //            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });

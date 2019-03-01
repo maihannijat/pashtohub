@@ -19,7 +19,7 @@ class CreateTermExamplesTable extends Migration
             $table->collation = 'utf8_unicode_ci';
             $table->increments('id')->unsigned();
             $table->integer('term_id')->nullable(false)->unsigned();
-            $table->integer('lang_id')->nullable(true);
+            $table->integer('lang_id')->nullable(true)->unsigned();
             $table->string('example', 255)->nullable(false);
 //            $table->foreign('term_id')->references('id')->on('terms');
             $table->timestamps();
