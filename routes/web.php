@@ -14,3 +14,9 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->group(['prefix' => 'terms'], function () use ($router) {
+    $router->get('', 'TermController@index');
+    $router->get('/search/{term}', 'TermController@search');
+    $router->get('/{id}', 'TermController@show');
+});
