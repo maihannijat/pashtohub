@@ -9,8 +9,17 @@ class DatabaseSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
-    {
-        // $this->call('UsersTableSeeder');
+    public function run() {
+        
+        $this->call([
+            'UsersSeeder',
+            'TermsSeeder',
+            // 'TermDefinitionsSeeder',
+            // 'TermSynonymsSeeder',
+            // 'TermExamplesSeeder',
+            // 'TermVariantsSeeder',
+            // 'TermTranslationsSeeder'
+        ]);
+        
     }
 }

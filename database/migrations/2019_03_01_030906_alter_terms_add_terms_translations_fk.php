@@ -26,7 +26,7 @@ class AlterTermsAddTermsTranslationsFk extends Migration
     public function down()
     {
         Schema::table('term_translations', function($table) {
-            $table->dropForeign('term_translations_variations_term_id_foreign');
+            $table->dropForeign('term_translations_term_id_foreign');
         });
     }
 }
