@@ -58,6 +58,12 @@ $app->singleton(
 |
 */
 
+$app->middleware([
+    // ...
+    \Barryvdh\Cors\HandleCors::class,
+]);
+
+
 // $app->middleware([
 //     App\Http\Middleware\ExampleMiddleware::class
 // ]);
@@ -81,6 +87,7 @@ $app->singleton(
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 $app->register(Flipbox\LumenGenerator\LumenGeneratorServiceProvider::class);
+$app->register(Barryvdh\Cors\ServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
@@ -92,6 +99,9 @@ $app->register(Flipbox\LumenGenerator\LumenGeneratorServiceProvider::class);
 | can respond to, as well as the controllers that may handle them.
 |
 */
+
+$app->configure('cors');
+
 
 $app->router->group([
     'namespace' => 'App\Http\Controllers',

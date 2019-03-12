@@ -1,9 +1,6 @@
 <?php
 
-use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-use Faker\Factory as Faker;
 
 class TermExamplesSeeder extends Seeder {
     /**

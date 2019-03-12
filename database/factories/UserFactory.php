@@ -9,7 +9,6 @@
 | database. Just tell the factory how a default model should look.
 */
 
-use Illuminate\Support\Str;
 use Faker\Generator as Faker;
 
 $factory->define(App\Models\User::class, function (Faker $faker) {

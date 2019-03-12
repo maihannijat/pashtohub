@@ -9,17 +9,18 @@ class DatabaseSeeder extends Seeder
      *
      * @return void
      */
-    public function run() {
-        
+    public function run()
+    {
+
         $this->call([
             'UsersSeeder',
             'TermsSeeder',
-            // 'TermDefinitionsSeeder',
-            // 'TermSynonymsSeeder',
-            // 'TermExamplesSeeder',
-            // 'TermVariantsSeeder',
-            // 'TermTranslationsSeeder'
+//            'TermDefinitionsSeeder',
+//            'TermSynonymsSeeder',
+//            'TermExamplesSeeder',
+//            'TermVariantsSeeder',
+//            'TermTranslationsSeeder'
         ]);
-        
+
     }
 }
