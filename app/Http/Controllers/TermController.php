@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Term;
 use App\Models\TermDefinition;
+use App\Models\TermExample;
+use App\Models\TermSynonym;
+use App\Models\TermTranslation;
 use App\Models\TermVariation;
 use Illuminate\Http\Request;
 
@@ -21,7 +24,13 @@ class TermController extends Controller
 
     public function search($term)
     {
-        return response(Term::where('term', 'Like', $term . '%')->orderBy('term', 'ASC')->get());
+        return response(Term::where('term', 'Like', $term . '%')->orderBy('term', 'ASC')->get()->each(function($term){
+            $term->definitions = TermDefinition::where('term_id', $term->id)->get();
+            $term->examples = TermExample::where('term_id', $term->id)->get();
+            $term->synonyms = TermSynonym::where('term_id', $term->id)->get();
+            $term->translations = TermTranslation::where('term_id', $term->id)->get();
+            $term->variations = TermVariation::where('term_id', $term->id)->get();            
+        }));
     }
 
     /**
@@ -45,10 +54,10 @@ class TermController extends Controller
     {
         $term = Term::where('id', $id)->first();
         $term->definitions = TermDefinition::where('term_id', $term->id)->get();
-        $term->examples = TermVariation::where('term_id', $term->id)->get();
-        $term->synonyms = TermVariation::where('term_id', $term->id)->get();
-        $term->translations = TermVariation::where('term_id', $term->id)->get();
-        $term->variations = TermDefinition::where('term_id', $term->id)->get();
+        $term->examples = TermExample::where('term_id', $term->id)->get();
+        $term->synonyms = TermSynonym::where('term_id', $term->id)->get();
+        $term->translations = TermTranslation::where('term_id', $term->id)->get();
+        $term->variations = TermVariation::where('term_id', $term->id)->get(); 
         return response($term);
     }
 
