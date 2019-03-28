@@ -14,7 +14,7 @@ class AddLangidToTermSynonyms extends Migration
     public function up()
     {
         Schema::table('term_synonyms', function (Blueprint $table) {
-            $table->integer('lang_id')->nullable(false)->after('variant');
+            $table->integer('lang_id')->nullable(false)->after('synonym');
         });
     }
 
