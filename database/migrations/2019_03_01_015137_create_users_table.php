@@ -16,12 +16,12 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->charset = 'utf8';
-            $table->collation = 'utf8_unicode_ci';
+            $table->collation = 'utf8_general_ci';
             $table->increments('id')->unsigned();
             $table->char('email', 255)->nullable(false);
             $table->char('first_name', 255)->nullable(false);
             $table->char('last_name', 255)->nullable(true);
-            $table->integer('status')->nullable(false);
+            $table->integer('status_id')->nullable(false);
             $table->string('password', 64)->nullable(false);
             $table->timestamp('password_forgot_time')->nullable(true);
             $table->string('token', 64)->nullable(true);
