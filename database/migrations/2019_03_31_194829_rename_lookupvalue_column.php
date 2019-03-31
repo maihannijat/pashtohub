@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddPashtovalToLookups extends Migration
+class RenameLookupvalueColumn extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddPashtovalToLookups extends Migration
     public function up()
     {
         Schema::table('lookups', function (Blueprint $table) {
-            $table->char('pashto_value', 50)->nullable(false)->after('lookup_value');
+            $table->renameColumn('lookup_value', 'english_value');
         });
     }
 
@@ -26,7 +26,7 @@ class AddPashtovalToLookups extends Migration
     public function down()
     {
         Schema::table('lookups', function (Blueprint $table) {
-            $table->dropColumn('pashto_value');
+            $table->renameColumn('english_value', 'lookup_value');
         });
     }
 }

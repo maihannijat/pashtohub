@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddPashtovalToLookups extends Migration
+class AddOriginidToTerms extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddPashtovalToLookups extends Migration
      */
     public function up()
     {
-        Schema::table('lookups', function (Blueprint $table) {
-            $table->char('pashto_value', 50)->nullable(false)->after('lookup_value');
+        Schema::table('terms', function (Blueprint $table) {
+            $table->integer('origin_id')->nullable(false)->after('term_lang_id');
         });
     }
 
@@ -25,8 +25,8 @@ class AddPashtovalToLookups extends Migration
      */
     public function down()
     {
-        Schema::table('lookups', function (Blueprint $table) {
-            $table->dropColumn('pashto_value');
+        Schema::table('terms', function (Blueprint $table) {
+            $table->dropColumn('origin_id');
         });
     }
 }
