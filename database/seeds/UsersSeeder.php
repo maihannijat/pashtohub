@@ -1,15 +1,15 @@
 <?php
 
-use Flynsarmy\CsvSeeder\CsvSeeder;
+use Crockett\CsvSeeder\CsvSeeder;
 use Illuminate\Support\Facades\DB;
 
-class UsersSeeder extends CsvSeeder {
+class UsersSeeder extends CsvSeeder
+{
 
     public function __construct()
     {
         $this->table = 'users';
-        $this->filename = base_path().'/database/seeds/csvs/users.csv';
-        $this->hashable = ['password', 'salt'];
+        $this->filename = base_path() . '/database/seeds/csvs/users.csv';
     }
 
     /**
@@ -17,7 +17,8 @@ class UsersSeeder extends CsvSeeder {
      *
      * @return void
      */
-    public function run() {
+    public function run()
+    {
         // Recommended when importing larger CSVs
         DB::disableQueryLog();
 
