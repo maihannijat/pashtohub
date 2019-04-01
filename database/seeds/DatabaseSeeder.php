@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             'UsersSeeder',
-            'TermsSeeder',
+        //    'TermsSeeder',
 //            'TermDefinitionsSeeder',
 //            'TermSynonymsSeeder',
 //            'TermExamplesSeeder',

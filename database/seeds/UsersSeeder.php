@@ -9,6 +9,7 @@ class UsersSeeder extends CsvSeeder {
     {
         $this->table = 'users';
         $this->filename = base_path().'/database/seeds/csvs/users.csv';
+        $this->hashable = ['password', 'salt'];
     }
 
     /**
@@ -21,7 +22,8 @@ class UsersSeeder extends CsvSeeder {
         DB::disableQueryLog();
 
         // Uncomment the below to wipe the table clean before populating
-        DB::table($this->table)->truncate();
+        // DB::table($this->table)->truncate();
+        DB::table($this->table)->delete();
 
         parent::run();
     }
