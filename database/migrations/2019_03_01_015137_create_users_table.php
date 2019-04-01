@@ -18,7 +18,7 @@ class CreateUsersTable extends Migration
             $table->charset = 'utf8';
             $table->collation = 'utf8_general_ci';
             $table->increments('id')->unsigned();
-            $table->char('email', 255)->nullable(false);
+            $table->char('email', 255)->nullable(false)->unique();
             $table->char('first_name', 255)->nullable(false);
             $table->char('last_name', 255)->nullable(true);
             $table->integer('status_id')->nullable(false);
