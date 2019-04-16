@@ -17,10 +17,9 @@ class CreateLookupsTable extends Migration
             $table->engine = 'InnoDB';
             $table->charset = 'utf8';
             $table->collation = 'utf8_general_ci';
-            $table->increments('id');
+            $table->increments('id')->unsigned();
             $table->char('lookup_name', 50)->nullable(false);
-            $table->char('english_value', 50)->nullable(false);
-            $table->char('pashto_value', 50)->nullable(false);
+            $table->char('value', 50)->nullable(false);
             $table->timestamps();
         });
     }

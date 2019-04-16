@@ -3,12 +3,12 @@
 use Crockett\CsvSeeder\CsvSeeder;
 use Illuminate\Support\Facades\DB;
 
-class TermsSeeder extends CsvSeeder {
+class LookupsSeeder extends CsvSeeder {
 
     public function __construct()
     {
-        $this->table = 'terms';
-        $this->filename = base_path() . '/database/seeds/csvs/terms.csv';
+        $this->table = 'lookups';
+        $this->filename = base_path() . '/database/seeds/csvs/lookups.csv';
     }
 
     /**

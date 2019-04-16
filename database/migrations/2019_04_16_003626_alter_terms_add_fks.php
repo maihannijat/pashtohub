@@ -36,6 +36,10 @@ class AlterTermsAddFks extends Migration
         Schema::table('term_definitions', function($table) {
             $table->foreign('term_id')->references('id')->on('terms')->onDelete('cascade');
         });
+
+        Schema::table('terms', function($table) {
+            $table->foreign('term_lang_id')->references('id')->on('lookups')->onDelete(null);
+        });
     }
 
     /**
@@ -67,6 +71,10 @@ class AlterTermsAddFks extends Migration
 
         Schema::table('term_definitions', function($table) {
             $table->dropForeign('term_definitions_term_id_foreign');
+        });
+
+        Schema::table('terms', function($table) {
+            $table->dropForeign('terms_term_lang_id_foreign');
         });
     }
 }
