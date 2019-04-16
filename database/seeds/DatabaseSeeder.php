@@ -14,12 +14,13 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             'UsersSeeder',
-        //    'TermsSeeder',
+            'LookupsSeeder',
+            'TermsSeeder',
+            'TermTranslationsSeeder',
 //            'TermDefinitionsSeeder',
+//            'TermVariantsSeeder',
 //            'TermSynonymsSeeder',
 //            'TermExamplesSeeder',
-//            'TermVariantsSeeder',
-//            'TermTranslationsSeeder'
         ]);
 
     }

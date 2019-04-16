@@ -3,7 +3,8 @@
 use Crockett\CsvSeeder\CsvSeeder;
 use Illuminate\Support\Facades\DB;
 
-class LookupsSeeder extends CsvSeeder {
+class LookupsSeeder extends CsvSeeder
+{
 
     public function __construct()
     {

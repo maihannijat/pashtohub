@@ -1,6 +1,6 @@
-﻿id,lookup_name,value
-1,language,Arabic
-2,language,Dari
-3,language,English
-4,language,Pashto
-5,language,Urdu
+﻿"id","lookup_name","value","created_at","updated_at"
+1,language,Arabic,,,
+2,language,Dari,,,
+3,language,English,,,
+4,language,Pashto,,,
+5,language,Urdu,,,

@@ -8,7 +8,7 @@ class TermTranslationsSeeder extends CsvSeeder {
     public function __construct()
     {
         $this->table = 'term_translations';
-        $this->filename = base_path() . '/database/seeds/csvs/terms_translations.csv';
+        $this->filename = base_path() . '/database/seeds/csvs/term_translations.csv';
     }
 
     /**

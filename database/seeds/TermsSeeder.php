@@ -3,12 +3,12 @@
 use Crockett\CsvSeeder\CsvSeeder;
 use Illuminate\Support\Facades\DB;
 
-class TermsSeeder extends CsvSeeder {
+class TermsSeeder extends CsvSeeder
+{
 
     public function __construct()
     {
-        $this->table = 'terms';
-        $this->filename = base_path() . '/database/seeds/csvs/terms.csv';
+
     }
 
     /**
@@ -20,6 +20,9 @@ class TermsSeeder extends CsvSeeder {
     {
         // Recommended when importing larger CSVs
         DB::disableQueryLog();
+
+        $this->table = 'terms';
+        $this->filename = base_path() . '/database/seeds/csvs/terms.csv';
 
         // Uncomment the below to wipe the table clean before populating
         // DB::table($this->table)->truncate();
