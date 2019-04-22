@@ -15,6 +15,20 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
+$router->group(['prefix' => 'auth'], function () use ($router) {
+    $router->post('/login', 'AuthController@login');
+    $router->get('/logout', 'AuthController@logout');
+    $router->get('/refresh', 'AuthController@refresh');
+    $router->get('/me', 'AuthController@me');
+});
+
+$router->group(['prefix' => 'users'], function () use ($router) {
+    $router->post('create', 'UserController@store');
+    $router->put('update/{id}', 'UserController@update');
+    $router->get('{id}', 'UserController@show');
+    $router->delete('{id}', 'UserController@destroy');
+});
+
 $router->group(['prefix' => 'terms'], function () use ($router) {
     $router->get('', 'TermController@index');
     $router->get('/search/{term}', 'TermController@search');
