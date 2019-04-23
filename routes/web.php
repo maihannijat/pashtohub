@@ -26,6 +26,9 @@ $router->group(['prefix' => 'users'], function () use ($router) {
     $router->post('create', 'UserController@store');
     $router->put('update/{id}', 'UserController@update');
     $router->get('{id}', 'UserController@show');
+    $router->get('verify/{first_name}/{last_name}/{token}', 'UserController@verify');
+    $router->post('forgot', 'UserController@forgotPassword');
+    $router->post('reset', 'UserController@resetPassword');
     $router->delete('{id}', 'UserController@destroy');
 });
 
