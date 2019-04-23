@@ -91,6 +91,7 @@ $app->middleware([
 $app->register(Flipbox\LumenGenerator\LumenGeneratorServiceProvider::class);
 $app->register(Barryvdh\Cors\ServiceProvider::class);
 $app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
+$app->register(\Illuminate\Mail\MailServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 /*
 |--------------------------------------------------------------------------
@@ -104,6 +105,7 @@ $app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
 */
 
 $app->configure('cors');
+$app->configure('mail');
 
 
 $app->router->group([
