@@ -24,7 +24,9 @@ class TermController extends Controller
 
     public function search($term)
     {
-        return response(Term::where('term', 'Like', urldecode($term) . '%')->orderBy('term', 'ASC')->get()->each(function($term){
+        return response(Term::where('term', 'Like', urldecode($term) . '%')
+            ->orderBy('term', 'ASC')
+            ->limit(8)->offset(8)->get()->each(function($term){
             $term->definitions = TermDefinition::where('term_id', $term->id)->get();
             $term->examples = TermExample::where('term_id', $term->id)->get();
             $term->synonyms = TermSynonym::where('term_id', $term->id)->get();
