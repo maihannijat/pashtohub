@@ -106,4 +106,14 @@ class AuthController extends Controller
             'expires_in' => auth()->factory()->getTTL() * 60
         ]);
     }
+
+    /**
+     * Get the login username to be used by the controller (ThrottlesLogins).
+     *
+     * @return string
+     */
+    public function username()
+    {
+        return 'email';
+    }
 }
