@@ -10,7 +10,7 @@
     <p>
         You told us you forgot your password. If you really did, click here to choose a new one:
     </p>
-    <a href="http://localhost:4200/users/verify/{{$user->first_name}}/{{$user->last_name}}/{{$user->token}}">
+    <a href="http://localhost:4200/users/verify/{{$user->id}}/{{$user->first_name}}/{{$user->token}}">
         <button style="height: 45px; width:200px; background: #009688; color:white; font-size: 14px; border-radius: 5px;">
             Choose a new password
         </button>
