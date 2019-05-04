@@ -23,7 +23,7 @@ class AuthController extends Controller
     public function __construct(JWTAuth $JWTAuth)
     {
         $this->JWTAuth = $JWTAuth;
-        $this->middleware('auth:api', ['except' => ['login']]);
+        $this->middleware('auth:api', ['except' => ['login', 'verify']]);
     }
 
 
@@ -63,11 +63,11 @@ class AuthController extends Controller
         }
     }
 
-    public function verify($first_name, $last_name, $token)
+    public function verify(Request $request)
     {
-        $user = User::where('first_name', $first_name, 'and')
-            ->where('last_name', $last_name, 'and')
-            ->where('token', $token)->first();
+        $user = User::where('id', $request->id, 'and')
+            ->where('first_name', $request->first_name, 'and')
+            ->where('token', $request->token)->first();
 
         if ($user) {
             $user->status_id = 1;
@@ -104,8 +104,8 @@ class AuthController extends Controller
 
     public function resetPassword(Request $request)
     {
-        $user = User::where('first_name', $request->first_name, 'and')
-            ->where('last_name', $request->last_name)->first();
+        $user = User::where('id', $request->id, 'and')
+            ->where('first_name', $request->first_name)->first();
 
 
         $user_reset = PasswordReset::whereEmail($user->email)->first();
@@ -113,7 +113,7 @@ class AuthController extends Controller
         if ($user_reset && $user_reset->token === $request->token) {
             $user->password = bcrypt($request->password);
 
-            $user->save();
+            $user->update();
 
             // Delete pending resets
             PasswordReset::whereEmail($user->email)->delete();

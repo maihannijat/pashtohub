@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PasswordReset;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -29,7 +28,6 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        // TODO send id and first name
         try {
             $user = User::create($request->all());
             $user->password = bcrypt($request->password);
@@ -74,10 +72,10 @@ class UserController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         try {
-            $user = User::findOrFail($id);
+            $user = User::findOrFail(auth()->user()->id);
             $user->update($request->all());
             if ($request->password) $user->password = bcrypt($request->password);
             $user->update();
@@ -93,10 +91,20 @@ class UserController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy()
     {
-        // TODO Implement the deactivation
-        return response(User::destroy($id));
+    }
+
+    public function deactivate()
+    {
+        try {
+            $user = User::findOrFail(auth()->user()->id);
+            $user->status_id = 3;
+            $user->update();
+            return response($user);
+        } catch (QueryException $exception) {
+            return response($exception);
+        }
     }
 
     /**
