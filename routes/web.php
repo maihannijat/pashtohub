@@ -16,23 +16,23 @@ $router->get('/', function () use ($router) {
 });
 
 $router->group(['prefix' => 'auth'], function () use ($router) {
-    $router->post('/login', 'AuthController@login');
-    $router->get('/logout', 'AuthController@logout');
-    $router->get('/refresh', 'AuthController@refresh');
-    $router->get('/me', 'AuthController@me');
+    $router->post('login', 'AuthController@login');
+    $router->get('logout', 'AuthController@logout');
+    $router->get('refresh', 'AuthController@refresh');
+    $router->post('verify', 'AuthController@verify');
+    $router->post('forgot', 'AuthController@forgotPassword');
+    $router->post('reset', 'AuthController@resetPassword');
 });
 
 $router->group(['prefix' => 'users'], function () use ($router) {
     $router->post('create', 'UserController@store');
-    $router->put('update/{id}', 'UserController@update');
+    $router->put('update', 'UserController@update');
+    $router->get('me', 'UserController@me');
     $router->get('{id}', 'UserController@show');
-    $router->get('verify/{first_name}/{last_name}/{token}', 'UserController@verify');
-    $router->post('forgot', 'UserController@forgotPassword');
-    $router->post('reset', 'UserController@resetPassword');
-    $router->delete('{id}', 'UserController@destroy');
+    $router->put('deactivate', 'UserController@deactivate');
 });
 
 $router->group(['prefix' => 'terms'], function () use ($router) {
     $router->get('', 'TermController@index');
-    $router->get('/search/{term}', 'TermController@search');
+    $router->get('search/{term}', 'TermController@search');
 });
