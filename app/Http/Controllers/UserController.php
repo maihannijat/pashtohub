@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use Laravel\Lumen\Routing\Controller as BaseController;
+use App\Utils\SendEmail;
 use Exception;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
-class UserController extends Controller
+class UserController extends BaseController
 {
 
     /**
@@ -41,9 +43,9 @@ class UserController extends Controller
         $this->validate($request, [
             'first_name' => 'required|max:64',
             'last_name' => 'required|max:64',
-            'email' => 'required|email|max:64',
+            'email' => 'required|unique:users|email|max:64',
             'password' => 'required|min:6|max:64',
-            'country_id' => 'max:10',
+            'country_id' => 'integer|digits:10',
             'phone' => 'max:64',
         ]);
 
@@ -62,8 +64,9 @@ class UserController extends Controller
 
             return response(['message' => 'The user has been successfully created']);
         } catch (Exception $exception) {
-            // TODO send email to admin for the error
-            return response(['error' => 'Could not create the user'], 500);
+            // Send email to the administrator
+            SendEmail::sendError($exception);
+            return response(['error' => 'Something went wrong - Could not create the user'], 500);
         }
     }
 
@@ -88,7 +91,7 @@ class UserController extends Controller
             'first_name' => 'max:64',
             'last_name' => 'max:64',
             'password' => 'min:6|max:64',
-            'country_id' => 'max:10',
+            'country_id' => 'integer|digits:10',
             'phone' => 'max:64',
         ]);
 
@@ -99,8 +102,9 @@ class UserController extends Controller
             $user->update();
             return response(['message' => 'The user has been successfully updated', 'data' => $user]);
         } catch (Exception $exception) {
-            // TODO send email to admin for the error
-            return response(['error' => 'Could not update the user'], 500);
+            // Send email to the administrator
+            SendEmail::sendError($exception);
+            return response(['error' => 'Something went wrong - Could not update the user'], 500);
         }
     }
 
@@ -126,8 +130,9 @@ class UserController extends Controller
             $user->update();
             return response(['message' => 'The user has been successfully deactivated']);
         } catch (Exception $exception) {
-            // TODO send email to admin for the error
-            return response(['error' => 'Could not deactivate the user'], 500);
+            // Send email to the administrator
+            SendEmail::sendError($exception);
+            return response(['error' => 'Something went wrong - Could not deactivate the user'], 500);
         }
     }
 

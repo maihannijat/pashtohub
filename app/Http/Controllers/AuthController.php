@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Laravel\Lumen\Routing\Controller as BaseController;
 use App\Models\PasswordReset;
 use App\Models\User;
 use Exception;
@@ -9,9 +10,10 @@ use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use App\Utils\SendEmail;
 use Tymon\JWTAuth\JWTAuth;
 
-class AuthController extends Controller
+class AuthController extends BaseController
 {
     use ThrottlesLogins;
     protected $JWTAuth;
@@ -32,7 +34,7 @@ class AuthController extends Controller
      * Handle a login request to the application.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      *
      */
     public function login(Request $request)
@@ -69,7 +71,8 @@ class AuthController extends Controller
                 return response()->json(['error' => 'Unauthorized Access'], 401);
             }
         } catch (Exception $exception) {
-            // TODO send email to admin for the error
+            // Send email to the administrator
+            SendEmail::sendError($exception);
             return response(['error' => 'Something went wrong - Could not login the user'], 500);
         }
     }
@@ -101,7 +104,8 @@ class AuthController extends Controller
                 return response(['error' => 'Unable to verify the user!']);
             }
         } catch (Exception $exception) {
-            // TODO send email to admin for the error
+            // Send email to the administrator
+            SendEmail::sendError($exception);
             return response(['error' => 'Something went wrong - Could not verify the user'], 500);
         }
     }
@@ -140,7 +144,8 @@ class AuthController extends Controller
             });
             return response(['message' => 'The email has been sent for resetting the password']);
         } catch (Exception $exception) {
-            // TODO send email to admin for the error
+            // Send email to the administrator
+            SendEmail::sendError($exception);
             return response(['error' => 'Something went wrong - Could not process the request for forgot password'], 500);
         }
     }
@@ -179,7 +184,8 @@ class AuthController extends Controller
                 return response(['error' => 'Token does not match']);
             }
         } catch (Exception $exception) {
-            // TODO send email to admin for the error
+            // Send email to the administrator
+            SendEmail::sendError($exception);
             return response(['error' => 'Something went wrong - Could not reset the password'], 500);
         }
     }
