@@ -18,15 +18,15 @@ class CreateUsersTable extends Migration
             $table->charset = 'utf8';
             $table->collation = 'utf8_general_ci';
             $table->increments('id')->unsigned();
-            $table->char('email', 255)->nullable(false)->unique();
-            $table->char('first_name', 255)->nullable(false);
-            $table->char('last_name', 255)->nullable(true);
+            $table->char('email', 64)->nullable(false)->unique();
+            $table->char('first_name', 64)->nullable(false);
+            $table->char('last_name', 64)->nullable(true);
             $table->integer('status_id')->nullable(false)->default(3);
             $table->string('password', 64)->nullable(false);
             $table->timestamp('password_forgot_time')->nullable(true);
             $table->string('token', 64)->nullable(true);
             $table->integer('country_id')->nullable(true);
-            $table->string('phone', 10)->nullable(true);
+            $table->string('phone', 64)->nullable(true);
             $table->timestamps();
         });
     }
