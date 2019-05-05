@@ -28,7 +28,6 @@ $router->group(['prefix' => 'users'], function () use ($router) {
     $router->post('create', 'UserController@store');
     $router->put('update', 'UserController@update');
     $router->get('me', 'UserController@me');
-    $router->get('{id}', 'UserController@show');
     $router->put('deactivate', 'UserController@deactivate');
 });
 
