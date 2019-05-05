@@ -36,6 +36,11 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
+        $this->validate($request, [
+            'email' => 'required|email|max:64',
+            'password' => 'required|min:6|max:64',
+        ]);
+
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
         // the login attempts for this application. We'll key this by the username and
         // the IP address of the client making these requests into this application.
@@ -65,6 +70,12 @@ class AuthController extends Controller
 
     public function verify(Request $request)
     {
+        $this->validate($request, [
+            'token' => 'required|max:64',
+            'first_name' => 'required|max:64',
+            'id' => 'required|digits:10|integer',
+        ]);
+
         $user = User::where('id', $request->id, 'and')
             ->where('first_name', $request->first_name, 'and')
             ->where('token', $request->token)->first();
@@ -80,6 +91,10 @@ class AuthController extends Controller
 
     public function forgotPassword(Request $request)
     {
+        $this->validate($request, [
+            'email' => 'required|email|max:64'
+        ]);
+
         $user = User::whereEmail($request->email)->first();
 
         if (!$user) {
@@ -104,6 +119,12 @@ class AuthController extends Controller
 
     public function resetPassword(Request $request)
     {
+        $this->validate($request, [
+            'id' => 'required|digits:10|integer',
+            'first_name' => 'required|max:64',
+            'password' => 'required|min:6|max:64'
+        ]);
+
         $user = User::where('id', $request->id, 'and')
             ->where('first_name', $request->first_name)->first();
 

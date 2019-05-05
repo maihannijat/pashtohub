@@ -10,6 +10,17 @@ use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
+
+    /**
+     * Create a new AuthController instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => ['store']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -28,6 +39,15 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'first_name' => 'required|max:64',
+            'last_name' => 'required|max:64',
+            'email' => 'required|email|max:64',
+            'password' => 'required|min:6|max:64',
+            'country_id' => 'max:10',
+            'phone' => 'max:64',
+        ]);
+
         try {
             $user = User::create($request->all());
             $user->password = bcrypt($request->password);
@@ -55,14 +75,6 @@ class UserController extends Controller
      */
     public function show($id)
     {
-
-        $user = User::find($id);
-        if ($user) {
-            return response($user);
-        } else {
-            return response(['error' => 'User not found']);
-        }
-
     }
 
     /**
@@ -74,6 +86,14 @@ class UserController extends Controller
      */
     public function update(Request $request)
     {
+        $this->validate($request, [
+            'first_name' => 'max:64',
+            'last_name' => 'max:64',
+            'password' => 'min:6|max:64',
+            'country_id' => 'max:10',
+            'phone' => 'max:64',
+        ]);
+
         try {
             $user = User::findOrFail(auth()->user()->id);
             $user->update($request->all());
