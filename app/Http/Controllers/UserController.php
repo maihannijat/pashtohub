@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Database\QueryException;
+use Exception;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
@@ -12,7 +12,7 @@ class UserController extends Controller
 {
 
     /**
-     * Create a new AuthController instance.
+     * Create a new UserController instance.
      *
      * @return void
      */
@@ -28,7 +28,6 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
     }
 
     /**
@@ -61,9 +60,10 @@ class UserController extends Controller
                     ->subject('Verify Your Pashto Hub Account');
             });
 
-            return response($user);
-        } catch (QueryException $exception) {
-            return response($exception);
+            return response(['message' => 'The user has been successfully created']);
+        } catch (Exception $exception) {
+            // TODO send email to admin for the error
+            return response(['error' => 'Could not create the user'], 500);
         }
     }
 
@@ -80,8 +80,6 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
@@ -99,9 +97,10 @@ class UserController extends Controller
             $user->update($request->all());
             if ($request->password) $user->password = bcrypt($request->password);
             $user->update();
-            return response($user);
-        } catch (QueryException $exception) {
-            return response($exception);
+            return response(['message' => 'The user has been successfully updated', 'data' => $user]);
+        } catch (Exception $exception) {
+            // TODO send email to admin for the error
+            return response(['error' => 'Could not update the user'], 500);
         }
     }
 
@@ -111,19 +110,24 @@ class UserController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy()
+    public function destroy($id)
     {
     }
 
+    /**
+     * Deactivate the current authenticated User
+     * @return \Illuminate\Http\Response
+     */
     public function deactivate()
     {
         try {
             $user = User::findOrFail(auth()->user()->id);
             $user->status_id = 3;
             $user->update();
-            return response($user);
-        } catch (QueryException $exception) {
-            return response($exception);
+            return response(['message' => 'The user has been successfully deactivated']);
+        } catch (Exception $exception) {
+            // TODO send email to admin for the error
+            return response(['error' => 'Could not deactivate the user'], 500);
         }
     }
 
@@ -134,6 +138,6 @@ class UserController extends Controller
      */
     public function me()
     {
-        return response()->json(auth()->user());
+        return response(auth()->user());
     }
 }
